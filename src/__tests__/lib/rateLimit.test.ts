@@ -99,14 +99,14 @@ describe("checkRateLimit", () => {
 
   it("fails closed (success:false) in production when Redis throws", async () => {
     const prev = process.env.NODE_ENV;
-    (process.env as any).NODE_ENV = "production";
+    (process.env as Record<string, string | undefined>).NODE_ENV = "production";
 
     try {
       mockLimit.mockRejectedValue(new Error("Redis unavailable"));
       const result = await checkRateLimit({ identifier: "user_1", limiter: aiLimiter });
       expect(result.success).toBe(false);
     } finally {
-      (process.env as any).NODE_ENV = prev;
+      (process.env as Record<string, string | undefined>).NODE_ENV = prev;
     }
   });
 });
@@ -164,7 +164,7 @@ describe("withRateLimit", () => {
 
   it("fails closed in production when Redis throws", async () => {
     const prev = process.env.NODE_ENV;
-    (process.env as any).NODE_ENV = "production";
+    (process.env as Record<string, string | undefined>).NODE_ENV = "production";
 
     try {
       mockLimit.mockRejectedValue(new Error("Redis down"));
@@ -176,7 +176,7 @@ describe("withRateLimit", () => {
       expect(res.status).toBe(503);
       expect(handler).not.toHaveBeenCalled();
     } finally {
-      (process.env as any).NODE_ENV = prev;
+      (process.env as Record<string, string | undefined>).NODE_ENV = prev;
     }
   });
 });
