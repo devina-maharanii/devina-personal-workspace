@@ -10,32 +10,66 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-
 # next.js
 /.next/
 /out/
+next-env.d.ts
+*.tsbuildinfo
 
 # production
 /build
+/dist
 
-# misc
+# testing & coverage
+/coverage
+/playwright-report/
+/test-results/
+blob-report/
+junit.xml
+
+# misc / OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 *.pem
 
-# debug
+# debug logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# local env files (contains sensitive credentials - DO NOT COMMIT)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# Sentry
+.sentryclirc
 
 # vercel
 .vercel
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# IDEs & Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Project metadata / developer docs
+/AGENTS.md
+/CHANGELOG.md
+/PROJECT_DETAILS.md
+/LAUNCH.md
+

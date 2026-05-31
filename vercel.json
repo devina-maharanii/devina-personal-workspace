@@ -1,0 +1,38 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/weekly-digest",
+      "schedule": "0 9 * * 1"
+    },
+    {
+      "path": "/api/cron/check-subscriptions",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/cleanup-files",
+      "schedule": "0 2 * * 0"
+    },
+    {
+      "path": "/api/cron/retry-webhooks",
+      "schedule": "*/15 * * * *"
+    },
+    {
+      "path": "/api/cron/verify-domains",
+      "schedule": "0 * * * *"
+    }
+  ],
+  "functions": {
+    "api/ai/**/*": {
+      "maxDuration": 60
+    },
+    "api/stripe/**/*": {
+      "maxDuration": 30
+    },
+    "src/app/api/ai/**/*": {
+      "maxDuration": 60
+    },
+    "src/app/api/stripe/**/*": {
+      "maxDuration": 30
+    }
+  }
+}

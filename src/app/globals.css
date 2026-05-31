@@ -1,26 +1,176 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light Mode Variables */
+  --background: #fbfbfb;
+  --foreground: #09090b; /* zinc-950 */
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+  
+  --primary: #4f46e5; /* indigo-600 */
+  --primary-foreground: #ffffff;
+  
+  --secondary: #f4f4f5; /* zinc-100 */
+  --secondary-foreground: #18181b; /* zinc-900 */
+  
+  --muted: #f4f4f5;
+  --muted-foreground: #52525b; /* zinc-600 */
+  
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  
+  --border: #e4e4e7; /* zinc-200 */
+  --input: #e4e4e7;
+  --ring: #4f46e5;
+  
+  --scrollbar-thumb: #d4d4d8; /* zinc-300 */
+  --scrollbar-track: #f4f4f5; /* zinc-100 */
+
+  /* Glowing and gradient variables */
+  --glow-indigo: rgba(99, 102, 241, 0.04);
+  --glow-emerald: rgba(16, 185, 129, 0.04);
+  --grid-line: #e4e4e7; /* zinc-200 */
 }
 
-@theme inline {
+.dark {
+  /* Dark Mode Variables */
+  --background: #030303;
+  --foreground: #f4f4f5; /* zinc-100 */
+  --card: #09090b; /* zinc-950 */
+  --card-foreground: #f4f4f5;
+  
+  --popover: #09090b;
+  --popover-foreground: #f4f4f5;
+  
+  --primary: #6366f1; /* indigo-500 */
+  --primary-foreground: #ffffff;
+  
+  --secondary: #18181b; /* zinc-900 */
+  --secondary-foreground: #f4f4f5;
+  
+  --muted: #18181b;
+  --muted-foreground: #a1a1aa; /* zinc-400 */
+  
+  --accent: #18181b;
+  --accent-foreground: #f4f4f5;
+  
+  --border: #27272a; /* zinc-800 */
+  --input: #27272a;
+  --ring: #6366f1;
+  
+  --scrollbar-thumb: #27272a; /* zinc-800 */
+  --scrollbar-track: #09090b; /* zinc-950 */
+
+  /* Glowing and gradient variables */
+  --glow-indigo: rgba(99, 102, 241, 0.07);
+  --glow-emerald: rgba(16, 185, 129, 0.07);
+  --grid-line: #18181b; /* zinc-900 */
+}
+
+/* System dark preference fallback before Javascript mounts */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: #030303;
+    --foreground: #f4f4f5;
+    --card: #09090b;
+    --card-foreground: #f4f4f5;
+    --popover: #09090b;
+    --popover-foreground: #f4f4f5;
+    --primary: #6366f1;
+    --primary-foreground: #ffffff;
+    --secondary: #18181b;
+    --secondary-foreground: #f4f4f5;
+    --muted: #18181b;
+    --muted-foreground: #a1a1aa;
+    --accent: #18181b;
+    --accent-foreground: #f4f4f5;
+    --border: #27272a;
+    --input: #27272a;
+    --ring: #6366f1;
+    --scrollbar-thumb: #27272a;
+    --scrollbar-track: #09090b;
+    --glow-indigo: rgba(99, 102, 241, 0.07);
+    --glow-emerald: rgba(16, 185, 129, 0.07);
+    --grid-line: #18181b;
+  }
+}
+
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-geist-sans), Inter, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
+}
+
+/* Theme Switching Smooth Transition */
+body, 
+header, 
+footer, 
+aside, 
+main, 
+section, 
+div.transition-theme,
+button:not([class*="transition-none"]),
+a:not([class*="transition-none"]) {
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.28);
+  color: #fff;
+}
+
+/* Modern Scrollbars selection */
+* {
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* WebKit scrollbar fallback */
+@supports not (scrollbar-color: auto) {
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+  *::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 9999px;
+  }
 }
