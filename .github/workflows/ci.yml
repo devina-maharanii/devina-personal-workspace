@@ -67,6 +67,12 @@ jobs:
       - name: Run Vitest Unit Tests
         run: npm run test
 
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright E2E Tests
+        run: npm run test:e2e
+
       - name: Compile Next.js Production Build
         run: npm run build
         env:
