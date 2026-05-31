@@ -85,28 +85,29 @@ jobs:
           UPSTASH_REDIS_REST_TOKEN: placeholder
           WEBHOOK_SECRET: placeholder
 
-  deploy-production:
-    name: Deploy to Vercel Production
-    needs: ci-build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+#  deploy-production:
+#    name: Deploy to Vercel Production
+#    needs: ci-build
+#    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout Code
+#        uses: actions/checkout@v4
+#
+#      - name: Setup Node.js Environment
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: 20
+#
+#      - name: Install Vercel CLI
+#        run: npm install -g vercel@latest
+#
+#      - name: Pull Vercel Environment Configuration
+#        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+#
+#      - name: Prebuild Project Artifacts
+#        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+#
+#      - name: Deploy Prebuilt Bundle to Vercel Production
+#        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
 
-      - name: Setup Node.js Environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install Vercel CLI
-        run: npm install -g vercel@latest
-
-      - name: Pull Vercel Environment Configuration
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Prebuild Project Artifacts
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Deploy Prebuilt Bundle to Vercel Production
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
